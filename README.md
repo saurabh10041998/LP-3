@@ -19,7 +19,7 @@ DES
 * 8 bit plain-text/cipher-text
 * 10 bits key size of encryption
 * two rounds
-
+i am refering <a href = "https://www.c-sharpcorner.com/article/s-des-or-simplified-data-encryption-standard/">This</a> article
 
 
 	

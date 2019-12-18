@@ -36,7 +36,7 @@ def KeyTransform(key):
 	for j in p8["output"]:
 		new_key[i] = key[j-1]
 		i += 1
-	return "".join(new_key)
+	return "".join(new_key), lkey, rkey
 	
 
 def pad(st, length, val):
@@ -53,8 +53,9 @@ if __name__ == "__main__":
 	text = random.getrandbits(10)
 	key = "{0:b}".format(text)
 	key  = pad(key, 10, "1")
-	K1 = KeyTransform(key)
-	print(K1)
+	K1,lkey, rkey = KeyTransform(key)
+	print(K1, lkey, rkey)
+	
 		
 	
 
