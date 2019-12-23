@@ -21,5 +21,7 @@ DES
 * two rounds
 i am refering <a href = "https://www.c-sharpcorner.com/article/s-des-or-simplified-data-encryption-standard/">This</a> article
 
-
+TODO
+----
+* Customized P10, P8, IP8 table..some init class for random stuff.(?)
 	

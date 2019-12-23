@@ -19,6 +19,12 @@ p8 = {
 	"output": [6, 3, 7, 4, 8, 5, 10, 9] 
 }
 
+#IP-8 table(custom??)
+IP8 = {
+	"input": [1, 2, 3, 4, 5, 6, 7, 8],
+	"output":[2 ,6, 3, 1, 4, 8, 5, 7] 
+}
+
 
 def rotate(input, d):
 	Lfirst = input[0: d]
@@ -39,6 +45,15 @@ def KeyTransform(key, nshift = 1):
 		new_key[i] = key[j-1]
 		i += 1
 	return "".join(new_key),lkey,rkey
+
+def Encrypt(plain_text):
+	#take help of initial permutation table
+	new_text = [0] * 8
+	i = 0 
+	for j in IP8["output"]:
+		new_text [i] = plain_text[j-1]				
+		i += 1
+	print("".join(new_text))
 	
 
 def pad(st, length, val):
@@ -51,17 +66,19 @@ if __name__ == "__main__":
 	#generation of the initial data 
 	text = random.getrandbits(8)
 	plain_text = "{0:b}".format(text)
-	plain_text = pad(plain_text, 8, "1") 
+	plain_text = pad(plain_text, 8, "1")
+	print(plain_text) 
 	text = random.getrandbits(10)
 	#key = "{0:b}".format(text)
 	key = str(bin(text))[2:]
 	key  = pad(key, 10, "1")
-	print(key)
 	K1,lkey, rkey = KeyTransform(key)
 	data["K1"] = K1
 	K2, _, _ = KeyTransform(lkey+rkey, 2)
 	data["K2"] = K2
-	print(data)
+	data["plain_text"] = plain_text
+	Encrypt(data["plain_text"])
+
 			
 	
 		
