@@ -22,7 +22,7 @@ void func(int connfd){
       bzero(buff, MAX);
       
       // read the message from client and copy it in buffer
-      fread(connfd, buff, MAX);
+      read(connfd, buff, MAX);
       //print the buffer which contains the client contents
       
       printf("\x1B[32m[*] From client --> %s\n\x1B[0m", buff);
@@ -34,7 +34,7 @@ void func(int connfd){
       while(buff[n++] = getchar() != '\n');
 
       //send that buffer to the client
-      fwrite(connfd, buff, sizeof(buff));
+      write(connfd, buff, sizeof(buff));
 
       // if msg contains "Exit" then server exit and chat ended
       if(strncmp("exit", buff, 4) == 0){
@@ -78,7 +78,7 @@ int main() {
     exit(0);
   }
 
-  printf("\x1B[34m[*] Server is listening\n\x1B[0m");
+  printf("\x1B[33m[*] Server is listening\n\x1B[0m");
   
   len = sizeof(cli);
 
@@ -86,8 +86,17 @@ int main() {
   
   connfd = accept(sockfd, (SA *)&cli, &len);
   if(connfd < 0) {
-    printf("\x1B[31m[!!] Server accept failed\x1B[
+    printf("\x1B[31m[!!] Server accept failed\n\x1B[0m");
+    exit(0);
   }
+  
+  printf("\x1B[33m[*] server accept the client\n\x1B[0m"); 
+  
+  // Function for chatting between client and server
+  func(connfd);
 
+  // After chatting close the socket
+  close(sockfd);
 
+  return 0;
 }
