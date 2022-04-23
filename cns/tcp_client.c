@@ -38,5 +38,34 @@ int main() {
   struct sockaddr_in servaddr, cli;
 
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if(sockfd == -1) {
+    printf("\x1B[31m[!!] Socket creation failed...\n\x1B[0m");
+    exit(0);
+  } 
+
+  printf("\x1B[32m[*] Socket successfully created\n\x1B[0m");
+  bzero(&servaddr, sizeof(servaddr));
+
+  // Assign IP,PORT
+  servaddr.sin_family = AF_INET;
+  servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+  servaddr.sin_port = htons(PORT);
+
+  //connect the client socket to server socket
+  if(connect(sockfd, (SA *)&servaddr, sizeof(servaddr)) != 0) { 
+    printf("\x1B[31m[!!] Connection with server failed\n\x1B[0m");
+    exit(0);
+  } 
+
+  printf("\x1B[32m[*] Connected to server\n\x1B[0m");
+
+  // function for chat
+  func(sockfd);
+
+  // close the socket
+
+  close(sockfd);
+
+  return 0;
 
 }
