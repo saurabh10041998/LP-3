@@ -31,7 +31,7 @@ void func(int connfd){
       n = 0;
       printf("\x1B[33m[+] To client: \x1B[0m");
       //copy server message in the buffer
-      while(buff[n++] = getchar() != '\n');
+      while((buff[n++] = getchar()) != '\n');
 
       //send that buffer to the client
       write(connfd, buff, sizeof(buff));
